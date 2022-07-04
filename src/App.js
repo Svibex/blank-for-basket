@@ -2,31 +2,42 @@ import React from 'react';
 import FieldList from "./Field/FieldList";
 import "./styles/style.css";
 import Contex from "./context";
+import AddField from "./Field/AddField";
 
 function App() {
   const [fields, setFields] = React.useState([
-    {id:1, index:110, name:'Телефон', price:10000},
-    {id:2, index:111, name:'Чайник', price:2000},
-    {id:3, index:112, name:'Холодильник', price:20000},
-    {id:4, index:113, name:'Микроволновка', price:5000},
+    {id:1, index:'110', name:'Телефон', price:'10000'},
+    {id:2, index:'111', name:'Чайник', price:'2000'},
+    {id:3, index:'112', name:'Холодильник', price:'20000'},
+    {id:4, index:'113', name:'Микроволновка', price:'5000'},
   ]);
 
   function deleteField(id) {
       setFields(fields.filter(field => field.id !== id)
   )}
   
-  const amount = fields.reduce((sum, current) => sum + (current.price || 0), 0);
+  function addField(index, name, price) {
+    setFields(fields.concat([{
+        index,
+        name,
+        price,
+        id: Date.now()
+    }]))
+  }
+  
+  const amount = fields.reduce((sum, current) => +sum + +(current.price || 0), 0);
 
   return (
       <Contex.Provider value={{ deleteField }}>
-        <body>
+        <div>
             <h1>Корзина</h1>
+            <AddField onCreate={addField}/>
             <span>
                 <h2>Количество товаров в корзине: {fields.length}</h2>
-                <h2>Стоимость товаров в корзине: {amount}</h2>
+                <h2>Стоимость товаров в корзине: {amount} рублей</h2>
             </span>
             {fields.length ? <FieldList fields={fields}/> : <h2>Список пуст</h2>}
-        </body>
+        </div>
       </Contex.Provider>
   );
 }
