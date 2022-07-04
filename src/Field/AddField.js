@@ -1,45 +1,32 @@
 import React, {useState} from "react";
-import {useForm} from "react-hook-form";
 import PropTypes from "prop-types";
 
-function AddField({onCreate}) {
-    const {
-        register,
-        formState: {
-            errors,
-        },
-        handleSubmit,
-    } = useForm();
+function AddField({ onCreate }) {
+    const [index, setIndex] = useState('')
+    const [name, setName] = useState('')
+    const [price, setPrice] = useState('')
+    
+    function submitHandler(event) {
+        event.preventDefault()
 
-    const onSubmit = (data) => {
-        onCreate(data)
+        if (index & name && price) {
+            onCreate(index, name, price)
+        }
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)}>
-            <label> Идентификатор:
-                <input
-                    {...register('index', {
-                        required: true
-                    })} />
-            </label>
-            <div>{errors?.index && <p>Заполните идентификатор</p>}</div>
-            <label> Наименование:
-                <input
-                    {...register('name', {
-                        required: true
-                    })} />
-            </label>
-            <div>{errors?.name && <p>Заполните наименование</p>}</div>
-            <label> Стоимость:
-                <input
-                    {...register('price', {
-                        required: true
-                    })} />
-            </label>
-            <div>{errors?.price && <p>Заполните стоимость</p>}</div>
-            <input type="submit" />
-        </form>
+        <>
+            <h2>Добавить товар в корзину:</h2>
+            <form onSubmit={submitHandler}>
+                <input placeholder="Идентификатор"
+                    value={index} onChange={event => setIndex(event.target.value)} />
+                <input placeholder="Наименование товара"
+                    value={name} onChange={event => setName(event.target.value)} />
+                <input placeholder="Стоимость"
+                    value={price} onChange={event => setPrice(event.target.value)}  />
+                <button className="buttonSubmit" type="submit">Добавить товар</button>
+            </form>
+        </>
     )
 
 }
