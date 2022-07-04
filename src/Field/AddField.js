@@ -9,9 +9,17 @@ function AddField({ onCreate }) {
     function submitHandler(event) {
         event.preventDefault()
 
-        if (index & name && price) {
+        if (!isNaN(+name) || !name) {
+            alert("Введите корректное наименование товара")
+        }
+        else if (isNaN(+index) || !index) {
+            alert("Введите корректный идентификатор")
+        }
+        else if (isNaN(+price) || !price) {
+            alert("Введите корректную стоимость")
+        }
+        else {
             onCreate(index, name, price)
-            console.log('hi')
         }
     }
 

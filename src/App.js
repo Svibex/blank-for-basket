@@ -21,9 +21,9 @@ function App() {
         index,
         name,
         price,
+        sale: '',
         id: Date.now()
     }]))
-      console.log(fields);
   }
   
   const amount = fields.reduce((sum, current) => +sum + +(current.price || 0), 0);
