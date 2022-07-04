@@ -1,14 +1,21 @@
-import React from "react";
+import React, {useContext} from "react";
 import PropTypes from "prop-types";
+import Contex from "../context";
 
 function FieldItem({ field, id }) {
+    const { deleteField } = useContext(Contex)
     return (
         <tr>
             <td>{id+1} </td>
             <td>{field.index}</td>
             <td>{field.name}</td>
             <td>{field.price}</td>
-            <td><button>&times;</button></td>
+            <td>
+                <button
+                    onClick={() => deleteField(field.id)}>
+                    &times;
+                </button>
+            </td>
         </tr>
     )
 }
