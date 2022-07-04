@@ -22,7 +22,7 @@ function App() {
         <body>
             <h1>Корзина</h1>
             <span>
-                <h2>Количество товаров в корзине: </h2>
+                <h2>Количество товаров в корзине: {fields.length}</h2>
                 <h2>Стоимость товаров в корзине: {amount}</h2>
             </span>
             <FieldList fields={fields}/>
