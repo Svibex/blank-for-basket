@@ -27,6 +27,7 @@ function App() {
   }
   
   const amount = fields.reduce((sum, current) => +sum + +(current.price || 0), 0);
+  const amountSale = fields.reduce((sum, current) => +sum + +(current.sale || 0), 0);
 
   return (
       <Contex.Provider value={{ deleteField }}>
@@ -35,7 +36,8 @@ function App() {
             <AddField onCreate={addField} />
             <span>
                 <h3>Количество товаров в корзине: {fields.length}</h3>
-                <h3>Стоимость товаров в корзине: {amount} рублей</h3>
+                <h3>Стоимость товаров в корзине:
+                    {fields.sale ? amount + amountSale : amount} рублей</h3>
             </span>
             {fields.length ? <FieldList fields={fields}/> : <h2>Список пуст</h2>}
         </div>
