@@ -3,10 +3,13 @@ import PropTypes from "prop-types";
 
 function FieldItem({ field, id }) {
     return (
-        <li>
-            <strong>{id+1}</strong>
-            {field.index + field.name + field.price}
-        </li>
+        <tr>
+            <td>{id+1} </td>
+            <td>{field.index}</td>
+            <td>{field.name}</td>
+            <td>{field.price}</td>
+            <td><button>&times;</button></td>
+        </tr>
     )
 }
 

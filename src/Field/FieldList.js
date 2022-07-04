@@ -4,11 +4,18 @@ import PropTypes from "prop-types";
 
 function FieldList(props) {
     return(
-        <ul>
+        <table>
+            <tr>
+                <td>№ позиции</td>
+                <td>ID товара</td>
+                <td>Наименование товара</td>
+                <td>цена</td>
+                <td>Удалить товар</td>
+            </tr>
             {props.fields.map((field, id) => {
                 return <FieldItem field={field} key={field.id} id={id}/>
             })}
-        </ul>
+        </table>
     )
 }
 

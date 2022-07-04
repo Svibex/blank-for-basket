@@ -1,5 +1,6 @@
 import React from 'react';
 import FieldList from "./Field/FieldList";
+import "./style.css"
 
 function App() {
   const fields = [
@@ -12,6 +13,10 @@ function App() {
   return (
     <>
       <h1>Корзина</h1>
+      <span>
+        <h2>Количество товаров в корзине: </h2>
+        <h2>Стоимость товаров в корзине: </h2>
+      </span>
         <FieldList fields={fields}/>
     </>
   );
