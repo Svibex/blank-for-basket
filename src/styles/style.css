@@ -83,6 +83,10 @@ button {
     border-color: #dc3545;
 }
 
+#deleteSales {
+    margin-left: 15px;
+}
+
 .buttonSubmit {
     color: #fff;
     background-color: #0d6efd;
@@ -119,4 +123,22 @@ span {
 .sales {
     display: flex;
     justify-content: space-between;
+}
+
+.line {
+    text-decoration: line-through;
+}
+
+.deleteLine {
+    text-decoration: none;
+}
+
+.price {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.priceSale {
+    font-weight: 700;
+    color: #dc3545;
 }

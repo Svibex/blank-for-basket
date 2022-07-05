@@ -59,10 +59,11 @@ function App() {
             <Sales updateSale={addSales} removeSales={removeSales} isDisabled={isDisabled}/>
             <span>
                 <h3>Количество товаров в корзине: {fields.length}</h3>
-                <h3>Стоимость товаров в корзине:
+                <h3>Стоимость товаров в корзине: &nbsp;
                     {amountSale>0 ?
-                        <p>{amountSale}</p> :
-                        <p>{amount}</p>} рублей
+                        <div className="price"><p className="line">{amount}</p> &nbsp;<p className="priceSale">{amountSale}</p></div>
+                        : <p>{amount}</p>}
+                    &nbsp;рублей
                 </h3>
             </span>
             <h2>Ваша корзина</h2>

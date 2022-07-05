@@ -51,6 +51,7 @@ function Sales({ updateSale, removeSales, isDisabled }) {
                     </button>
                     <button
                         className={isDelBtnDisabled ? "disabled" : "buttonDelete"}
+                        id="deleteSales"
                         type="button"
                         onClick={removeBtnHandler}
                         disabled={isDelBtnDisabled}

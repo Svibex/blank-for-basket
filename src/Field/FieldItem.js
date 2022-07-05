@@ -9,8 +9,8 @@ function FieldItem({ field, id }) {
             <td>{id+1} </td>
             <td>{field.index}</td>
             <td>{field.name}</td>
-            <td>{field.price}</td>
-            <td>{field.sale ? field.sale : "Нет"}</td>
+            <td className={field.sale ? "line" : "deleteLine"}>{field.price}</td>
+            <td className={field.sale ? "priceSale" : ""}>{field.sale ? field.sale : "Нет"}</td>
             <td>
                 <button
                     className="buttonDelete"
