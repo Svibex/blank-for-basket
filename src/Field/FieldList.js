@@ -11,7 +11,7 @@ function FieldList(props) {
                     <th>ID товара</th>
                     <th>Наименование товара</th>
                     <th>Цена</th>
-                    <th>Скидка</th>
+                    <th>Цена со скидкой</th>
                     <th>Удалить товар</th>
                 </tr>
             </thead>

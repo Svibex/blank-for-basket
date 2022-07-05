@@ -10,7 +10,7 @@ function FieldItem({ field, id }) {
             <td>{field.index}</td>
             <td>{field.name}</td>
             <td>{field.price}</td>
-            <td>{field.sale ? true : "Нет"}</td>
+            <td>{field.sale ? field.sale : "Нет"}</td>
             <td>
                 <button
                     className="buttonDelete"

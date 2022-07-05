@@ -27,8 +27,16 @@ h1 {
     font-size: 50px;
 }
 
+h2 {
+    margin-top: 20px;
+}
+
 table {
     width: 800px;
+}
+
+h3 {
+    display: flex;
 }
 
 th {
@@ -81,10 +89,18 @@ button {
     border-color: #0d6efd;
 }
 
+.disabled {
+    cursor: auto;
+    color: #fff;
+    background-color: #6c757d;
+    border-color: #6c757d
+}
+
 input {
     line-height: 1.5;
     height: 38px;
     width: 200px;
+    padding-left: 10px;
 }
 
 form {
@@ -98,4 +114,9 @@ span {
     align-items: flex-end;
     justify-content: flex-end;
     height: 100px;
+}
+
+.sales {
+    display: flex;
+    justify-content: space-between;
 }
