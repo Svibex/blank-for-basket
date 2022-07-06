@@ -26,7 +26,7 @@ function App() {
     }
 
     function addField(data) {
-        setFields([...fields, {...data, sale: data.price-(data.price*sale/100), index: fields.length+1}]);
+        setFields([...fields, {...data, sale: sale ? data.price-(data.price*sale/100) : '', index: fields.length+1}]);
     }
 
     function addSales(sale) {
