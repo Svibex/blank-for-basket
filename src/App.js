@@ -26,14 +26,13 @@ function App() {
     }
 
     function addField(data) {
-        setFields([...fields, {...data, sale: '', index: fields.length+1}]);
-        addSales(sale);
+        setFields([...fields, {...data, sale: data.price-(data.price*sale/100), index: fields.length+1}]);
     }
 
     function addSales(sale) {
         setSale(sale);
         setFields((fields) => fields.map(item => {
-            return {...item, sale: item.price - (item.price * sale / 100)}
+            return {...item, sale: item.price-(item.price*sale/100)}
         }))
     }
 
@@ -45,7 +44,7 @@ function App() {
     }
 
     const amount = fields.reduce((sum, current) => sum + +current.price, 0);
-    const amountSale = fields.reduce((sum, current) => sum + current.sale, 0);
+    const amountSale = fields.reduce((sum, current) => sum + +current.sale, 0);
 
     return (
         <>
@@ -54,16 +53,18 @@ function App() {
             <SaleForm updateSale={addSales} removeSales={removeSales} isDisabled={isDisabled}/>
             <div className="statistics">
                 <h3>Количество товаров в корзине: {fields.length}</h3>
-                <h3>Стоимость товаров в корзине: &nbsp;
-                    {amountSale > 0 ?
+                <div className="h3">Стоимость товаров в корзине: &nbsp;
+                    {fields[0]?.sale && amountSale>=0 ?
                         <div className="price"><p className="line">{amount}</p> &nbsp;<p
                             className="priceSale">{amountSale}</p></div>
                         : <p>{amount}</p>}
                     &nbsp;рублей
-                </h3>
+                </div>
             </div>
-            <h2>Ваша корзина</h2>
-            {fields.length ? <FieldList fields={fields} deleteField={deleteField}/> : <h2>Список пуст</h2>}
+            <div className="basket">
+                <h2>Ваша корзина</h2>{fields.length ? "" : <h2>&nbsp;пуста</h2>}
+            </div>
+            {fields.length ? <FieldList fields={fields} deleteField={deleteField}/> : ""}
         </>
     );
 }

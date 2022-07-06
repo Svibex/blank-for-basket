@@ -14,7 +14,7 @@ function SaleForm({updateSale, removeSales, isDisabled}) {
 
     function onChangeHandler(event) {
         const value = event.target.value;
-        if (value > 0 && value <= 100 || value === '') {
+        if (value >= 0 && value <= 100 || value === '') {
             setSale(value);
         }
     }

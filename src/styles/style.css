@@ -35,8 +35,10 @@ table {
     width: 800px;
 }
 
-h3 {
+h3, .h3 {
     display: flex;
+    font-size: 1.17em;
+    font-weight: 700;
 }
 
 th {
@@ -141,4 +143,8 @@ form {
 .priceSale {
     font-weight: 700;
     color: #dc3545;
+}
+
+.basket {
+    display: flex;
 }
