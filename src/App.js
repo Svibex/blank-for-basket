@@ -1,76 +1,71 @@
 import React, {useEffect, useState} from "react";
-import FieldList from "./Field/FieldList";
+import FieldList from "./Components/FieldList";
 import "./styles/style.css";
-import Contex from "./context";
-import AddField from "./Field/AddField";
-import Sales from "./Sales";
+import Form from "./Components/Form";
+import SaleForm from "./Components/SaleForm";
 
 function App() {
-  const [fields, setFields] = useState([
-    {id:1, index:'110', name:'Телефон', price:'10000', sale: ''},
-    {id:2, index:'111', name:'Чайник', price:'2000', sale: ''},
-    {id:3, index:'112', name:'Холодильник', price:'20000', sale: ''},
-    {id:4, index:'113', name:'Микроволновка', price:'5000', sale: ''},
-  ]);
+    const [fields, setFields] = useState([
+        {index: 1, id: '110', name: 'Телефон', price: 10000, sale: ''},
+        {index: 2, id: '111', name: 'Чайник', price: 2000, sale: ''},
+        {index: 3, id: '112', name: 'Холодильник', price: 20000, sale: ''},
+        {index: 4, id: '113', name: 'Микроволновка', price: 5000, sale: ''},
+    ]);
 
-  const [isDisabled, setIsDisabled] = useState(fields.length === 0);
+    const [isDisabled, setIsDisabled] = useState(fields.length === 0);
+    const [sale, setSale] = useState(null);
 
-  useEffect(() => {
-     if(fields.length !== 0) setIsDisabled(false);
-     else setIsDisabled(true);
+    useEffect(() => {
+        if (fields.length !== 0) setIsDisabled(false);
+        else setIsDisabled(true);
 
-  }, [fields])
+    }, [fields]);
 
-  function deleteField(id) {
-      setFields(fields.filter(field => field.id !== id)
-  )}
-  
-  function addField(index, name, price) {
-    setFields(fields.concat([{
-        index,
-        name,
-        price,
-        sale: '',
-        id: Date.now()
-    }]))
-  }
+    function deleteField(id) {
+        setFields(fields.filter(field => field.id !== id));
+    }
 
-  function addSales(sale) {
-      setFields((fields) => fields.map(item => {
-          return {...item, sale: (item.price-(item.price*sale/100))}
-      }))
-  }
+    function addField(data) {
+        setFields([...fields, {...data, sale: '', index: fields.length+1}]);
+        addSales(sale);
+    }
 
-  function removeSales(event) {
-      setFields((fields) => fields.map(item => {
-          return {...item, sale: ""}
-      }))
+    function addSales(sale) {
+        setSale(sale);
+        setFields((fields) => fields.map(item => {
+            return {...item, sale: item.price - (item.price * sale / 100)}
+        }))
+    }
 
-  }
+    function removeSales() {
+        setFields((fields) => fields.map(item => {
+            return {...item, sale: ''}
+        }));
+        setSale(null);
+    }
 
-  const amount = fields.reduce((sum, current) => +sum + +(current.price || 0), 0);
-  const amountSale = fields.reduce((sum, current) => +sum + +(current.sale || 0), 0);
+    const amount = fields.reduce((sum, current) => sum + +current.price, 0);
+    const amountSale = fields.reduce((sum, current) => sum + current.sale, 0);
 
-  return (
-      <Contex.Provider value={{ deleteField }}>
-        <div className="body">
+    return (
+        <>
             <h1>Управление корзиной</h1>
-            <AddField onCreate={addField} />
-            <Sales updateSale={addSales} removeSales={removeSales} isDisabled={isDisabled}/>
-            <span>
+            <Form onCreate={addField}/>
+            <SaleForm updateSale={addSales} removeSales={removeSales} isDisabled={isDisabled}/>
+            <div className="statistics">
                 <h3>Количество товаров в корзине: {fields.length}</h3>
                 <h3>Стоимость товаров в корзине: &nbsp;
-                    {amountSale>0 ?
-                        <div className="price"><p className="line">{amount}</p> &nbsp;<p className="priceSale">{amountSale}</p></div>
+                    {amountSale > 0 ?
+                        <div className="price"><p className="line">{amount}</p> &nbsp;<p
+                            className="priceSale">{amountSale}</p></div>
                         : <p>{amount}</p>}
                     &nbsp;рублей
                 </h3>
-            </span>
+            </div>
             <h2>Ваша корзина</h2>
-            {fields.length ? <FieldList fields={fields}/> : <h2>Список пуст</h2>}
-        </div>
-      </Contex.Provider>
-  );
+            {fields.length ? <FieldList fields={fields} deleteField={deleteField}/> : <h2>Список пуст</h2>}
+        </>
+    );
 }
 
 export default App;

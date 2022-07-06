@@ -1,29 +1,22 @@
-import React, {useState} from "react";
-import PropTypes from "prop-types";
+import React, {useEffect, useState} from "react";
 
-function Sales({ updateSale, removeSales, isDisabled }) {
+function SaleForm({updateSale, removeSales, isDisabled}) {
     const [sale, setSale] = useState("");
     const [isSetBtnDisabled, setSetBtnDisabled] = useState(true);
     const [isDelBtnDisabled, setDelBtnDisabled] = useState(true);
 
     function submitHandler(event) {
         event.preventDefault();
-
-        if (sale>=0 && sale<=100) {
-            updateSale(sale);
-            setSale('');
-            setSetBtnDisabled(true);
-            setDelBtnDisabled(false);
-        }
+        updateSale(+sale);
+        setSale('');
+        setDelBtnDisabled(false);
     }
 
     function onChangeHandler(event) {
         const value = event.target.value;
-        if (value<=100) {
+        if (value > 0 && value <= 100 || value === '') {
             setSale(value);
         }
-        if (value === '') setSetBtnDisabled(true);
-        else setSetBtnDisabled(false);
     }
 
     function removeBtnHandler() {
@@ -31,8 +24,13 @@ function Sales({ updateSale, removeSales, isDisabled }) {
         setDelBtnDisabled(true);
     }
 
-    return(
-        <div>
+    useEffect(() => {
+        if (sale === '') setSetBtnDisabled(true);
+        else setSetBtnDisabled(false);
+    }, [sale])
+
+    return (
+        <>
             <h2>Управление скидками</h2>
             <form className="sales">
                 <input placeholder="Скидка (от 0 до 100)"
@@ -43,7 +41,7 @@ function Sales({ updateSale, removeSales, isDisabled }) {
                 <div>
                     <button
                         className={isSetBtnDisabled ? "disabled" : "buttonSubmit"}
-                        type="button"
+                        type="submit"
                         onClick={submitHandler}
                         disabled={isSetBtnDisabled}
                     >
@@ -56,18 +54,13 @@ function Sales({ updateSale, removeSales, isDisabled }) {
                         onClick={removeBtnHandler}
                         disabled={isDelBtnDisabled}
                     >
-                        Убрать скидки
+                        Убрать скидку
                     </button>
                 </div>
             </form>
 
-        </div>
+        </>
     )
 }
 
-Sales.propTypes = {
-    updateSale: PropTypes.func.isRequired,
-    removeSales: PropTypes.func.isRequired
-}
-
-export default Sales;
+export default SaleForm;

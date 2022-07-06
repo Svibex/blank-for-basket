@@ -1,24 +1,27 @@
 import React, {useState, useEffect} from "react";
-import PropTypes from "prop-types";
 
-function AddField({onCreate}) {
-    const [data, setData] = useState({index: '', name: '', price: ''});
+function Form({onCreate}) {
+    const [data, setData] = useState({id: '', name: '', price: ''});
     const [isDisabled, setIsDisabled] = useState(true);
 
     function submitHandler(event) {
-        event.preventDefault()
+        event.preventDefault();
         setIsDisabled(true);
-        onCreate(data.index, data.name, data.price);
-        setData((prevState) => ({...prevState, index: '', name: '', price: ''}));
+        onCreate(data);
+        setData(() => ({id: '', name: '', price: ''}));
     }
 
     function onChangeHandler(event) {
-        const { value, name } = event.target;
-        setData(prevState => ({...prevState,[name]: value}));
+        const {value, name} = event.target;
+        if(name === 'price') {
+            if(!(/^[\d.]*$/.test(value)) || (value <= 0 && value !== '')) return;
+        }
+        setData(prevState => ({...prevState, [name]: value}));
     }
 
+
     useEffect(() => {
-        if (data.index !== '' && data.name !== '' && data.price !== '') setIsDisabled(false);
+        if (data.id !== '' && data.name !== '' && data.price !== '') setIsDisabled(false);
         else setIsDisabled(true);
     }, [data])
 
@@ -26,17 +29,17 @@ function AddField({onCreate}) {
         <>
             <h2>Добавить товар в корзину:</h2>
             <form>
-                <input placeholder="Идентификатор"
-                       value={data.index}
-                       name="index"
+                <input placeholder="Идентификатор товара"
+                       value={data.id}
+                       name="id"
                        onChange={onChangeHandler}
                 />
-                <input placeholder="Наименование товара"
+                <input placeholder="Название товара"
                        value={data.name}
                        name="name"
                        onChange={onChangeHandler}
                 />
-                <input placeholder="Стоимость"
+                <input placeholder="Цена товара"
                        value={data.price}
                        name="price"
                        onChange={onChangeHandler}
@@ -45,7 +48,7 @@ function AddField({onCreate}) {
                         type="submit"
                         onClick={submitHandler}
                         disabled={isDisabled}
-                >Добавить товар
+                >Добавить
                 </button>
             </form>
         </>
@@ -53,8 +56,4 @@ function AddField({onCreate}) {
 
 }
 
-AddField.propTypes = {
-    onCreate: PropTypes.func.isRequired
-}
-
-export default AddField;
+export default Form;
