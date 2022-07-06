@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/blank-for-basket/static/css/main.fc62a585.css",
+    "main.js": "/blank-for-basket/static/js/main.4bb29c0f.js",
+    "static/media/Circe-Regular.ttf": "/blank-for-basket/static/media/Circe-Regular.f80cf2f1a50fc5107f4c.ttf",
+    "static/media/Circe-Bold.ttf": "/blank-for-basket/static/media/Circe-Bold.d9332714c66b14bb30e5.ttf",
+    "index.html": "/blank-for-basket/index.html",
+    "main.fc62a585.css.map": "/blank-for-basket/static/css/main.fc62a585.css.map",
+    "main.4bb29c0f.js.map": "/blank-for-basket/static/js/main.4bb29c0f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.fc62a585.css",
+    "static/js/main.4bb29c0f.js"
+  ]
+}
